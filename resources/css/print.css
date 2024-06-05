@@ -1,0 +1,137 @@
+@page {
+    size: 21cm 29.7cm;
+    margin: 5mm 10mm 5mm 5mm;
+    /* change the margins as you want them to be. */
+}
+
+body{
+    font-family: "Fira Sans Heavy", serif;
+}
+
+.title{
+    text-align: right;
+    font-variant: small-caps;
+    font-size: x-large;
+    margin-bottom: 15px;
+}
+
+.title .sheet{
+    float:left;
+}
+
+.team{
+    display:flex;
+    margin: 0 0 15px;
+}
+
+.team .title{
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    padding: 10px 2px;
+    font-size: larger;
+    text-transform: uppercase;
+    display: compact;
+    align-self: flex-start;
+}
+
+.good .title{
+    color: #0000ff;
+    border-right: #0000ff 2px solid;
+}
+
+.bad .title{
+    color: #FF0000;
+    border-right: #FF0000 2px solid;
+}
+
+.roles{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.role{
+    display: inline-flex;
+    margin: 0 0 5px;
+}
+
+.role .role-name{
+    font-family: "Fira Sans Heavy", serif;
+    font-size: medium;
+}
+
+.good .role-name{
+    color: #0000FF;
+}
+
+.bad .role-name{
+    color: #FF0000;
+}
+
+.role .icon{
+
+}
+
+.role-icon{
+    height: 60px;
+}
+.role .ability {
+    flex-grow: 1;
+    font-size: small;
+    font-family: "Fira Sans", serif;
+}
+
+.reminder{
+    font-family: "Fira Sans", serif;
+    font-size: medium;
+    display: flex;
+    border-bottom: 1px solid black;
+}
+
+.reminder .icon{
+    width: 45px;
+    height: 45px;
+}
+
+.reminder .role-icon{
+    height: 45px;
+}
+
+.reminder .ability{
+    font-size: small;
+}
+
+.reminder .ability-text{
+    color: #b6b6b6;
+}
+
+.townsfolk .role-name{
+    color: #0000FF;
+}
+.outsider .role-name{
+    color: #0000FF;
+}
+.minion .role-name{
+    color: #ff0000;
+}
+.demon .role-name{
+    color: #ff0000;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    font-family: "Fira Sans", serif;
+    width: 100%;
+    padding: 2px;
+    font-style: italic;
+    font-size: small;
+}
+
+@media print {
+    .pagebreak {
+        clear: both;
+        page-break-after: always;
+    }
+}
