@@ -5,14 +5,15 @@
 }
 
 body{
-    font-family: "Fira Sans Heavy", serif;
+    font-family: "Fira Sans", serif;
 }
 
 .title{
     text-align: right;
     font-variant: small-caps;
     font-size: x-large;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+    font-weight: 800;
 }
 
 .title .sheet{
@@ -21,7 +22,7 @@ body{
 
 .team{
     display:flex;
-    margin: 0 0 15px;
+    margin: 0 0 3px;
 }
 
 .team .title{
@@ -32,6 +33,8 @@ body{
     text-transform: uppercase;
     display: compact;
     align-self: flex-start;
+    margin-top: 10px;
+    font-weight: 800;
 }
 
 .good .title{
@@ -44,20 +47,27 @@ body{
     border-right: #FF0000 2px solid;
 }
 
+.top-line{
+    border-top: 1px #cccccc solid;
+}
+
 .roles{
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    padding: 10px 0 0 0;
+    margin: 0 0 0 10px;
 }
 
 .role{
     display: inline-flex;
-    margin: 0 0 5px;
+    margin: 0 0 3px;
 }
 
 .role .role-name{
-    font-family: "Fira Sans Heavy", serif;
+    font-family: "Fira Sans", serif;
     font-size: medium;
+    font-weight: 800;
 }
 
 .good .role-name{
@@ -85,7 +95,7 @@ body{
     font-family: "Fira Sans", serif;
     font-size: medium;
     display: flex;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #cccccc;
 }
 
 .reminder .icon{

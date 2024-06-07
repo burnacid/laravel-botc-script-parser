@@ -21,7 +21,7 @@
 
     <div class="team good">
         <div class="title">Outsider</div>
-        <div class="roles">
+        <div class="roles top-line">
             @foreach($roles->where("team","outsider") as $role)
                 <div class="role">
                     <div class="icon">
@@ -38,7 +38,7 @@
 
     <div class="team bad">
         <div class="title">Minion</div>
-        <div class="roles">
+        <div class="roles top-line">
             @foreach($roles->where("team","minion") as $role)
                 <div class="role">
                     <div class="icon">
@@ -55,7 +55,7 @@
 
     <div class="team bad">
         <div class="title">Demon</div>
-        <div class="roles">
+        <div class="roles top-line">
             @foreach($roles->where("team","demon") as $role)
                 <div class="role">
                     <div class="icon">
