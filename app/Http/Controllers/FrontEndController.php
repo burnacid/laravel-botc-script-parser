@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\BotcRole;
 use Illuminate\Http\Request;
 use \Illuminate\Contracts\View\View;
-use mysql_xdevapi\Collection;
 
 class FrontEndController extends Controller
 {
@@ -20,6 +19,9 @@ class FrontEndController extends Controller
             'json' => 'required|mimes:json|max:2048',
         ]);
 
+        $title = "Unnamed Script";
+        $author = "Unknown";
+
         $json = json_decode(file_get_contents($request->json));
 
         $roles = BotcRole::where("team","_meta")->get();
@@ -27,6 +29,12 @@ class FrontEndController extends Controller
         foreach ($json as $item) {
             if(gettype($item) == 'object'){
                 if($item->id == "_meta"){
+                    if($item->name){
+                        $title = $item->name;
+                    }
+                    if($item->author){
+                        $author = $item->author;
+                    }
                     continue;
                 }
 
@@ -44,7 +52,7 @@ class FrontEndController extends Controller
             $roles->add($BotCRole);
         }
 
-        return view('print', compact('roles'));
+        return view('print', compact('roles','author', 'title'));
 
         // Night Order sheet first day
 //        foreach($roles->where("firstNight","!=",null)->sortBy("firstNight") as $act){

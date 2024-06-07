@@ -35,7 +35,6 @@ class BotcRolesController extends Controller
             $role->otherNightReminder = $character->otherNightReminder;
             $role->team = $character->team;
 
-
             $role->save();
         }
     }

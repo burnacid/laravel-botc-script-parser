@@ -1,6 +1,9 @@
 <x-print-layout>
+    <div class="print-hidden">
+        Please use the print option of your browser to print this script on paper or turn it into a PDF
+    </div>
     <div class="title">
-        Test
+        {{$title}}
     </div>
     <div class="team good">
         <div class="title">Townsfolk</div>
@@ -72,6 +75,10 @@
 
     <div class="footer">
         * not the first night
+
+    </div>
+    <div class="footer">
+        <div class="float-left font-light">&copy; art by The Pandemonium Institute</div>
     </div>
     <div class="pagebreak"></div>
 

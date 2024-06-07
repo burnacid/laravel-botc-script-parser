@@ -19,10 +19,8 @@
     @vite(['resources/css/print.css'])
 </head>
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        <main>
-            {{ $slot }}
-        </main>
+    <div id="main">
+        {{ $slot }}
     </div>
 </body>
 </html>
