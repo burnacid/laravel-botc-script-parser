@@ -6,6 +6,7 @@ use DOMDocument;
 use DOMXPath;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -16,6 +17,11 @@ class BotcRole extends Model
 
     public $incrementing = false;
     protected $keyType = 'string';
+
+    public function jinx(): HasMany
+    {
+        return $this->hasMany(BotcJinx::class, 'role_id', 'id');
+    }
 
     public function grepIcon(): bool
     {
@@ -57,7 +63,7 @@ class BotcRole extends Model
         $json = json_decode($response->body());
 
         foreach($json as $role){
-            $id = strtolower(str_replace(" ","_",str_replace("'","",$role->id)));
+            $id = BotcRole::translateRole($role->id);
             if(!BotcRole::find($id)){
                 $NewRole = new BotcRole();
                 $NewRole->id = $id;
@@ -71,6 +77,10 @@ class BotcRole extends Model
                 $NewRole->save();
             }
         }
+    }
+
+    public static function translateRole($role): string{
+        return strtolower(str_replace(" ","_",str_replace("'","",$role)));
     }
 
     public function formattedAbility(){

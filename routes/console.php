@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\BotcJinx;
 use App\Models\BotcRole;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -11,7 +12,8 @@ Artisan::command('inspire', function () {
 
 Schedule::call(function () {
     BotcRole::collectRoles();
-})->daily()->name('Collect BotC Roles');
+    BotcJinx::collectJinx();
+})->daily()->name('Collect BotC Roles & Jinxs');
 
 
 Schedule::call(function () {
