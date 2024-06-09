@@ -12,9 +12,9 @@ Artisan::command('inspire', function () {
 
 Schedule::call(function () {
     BotcRole::collectRoles();
+    BotcRole::collectNightOrder();
     BotcJinx::collectJinx();
 })->daily()->name('Collect BotC Roles & Jinxs');
-
 
 Schedule::call(function () {
     $Roles = BotcRole::where('team', "!=", "_meta")->whereNull('image')->get();

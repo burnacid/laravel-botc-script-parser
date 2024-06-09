@@ -52,18 +52,27 @@ class FrontEndController extends Controller
             $roles->add($BotCRole);
         }
 
-        return view('print', compact('roles','author', 'title'));
+        // Get jinxes
+        $jinxes = collect();
+        foreach ($roles as $role) {
+            if($role->jinx->count() == 0){
+                continue;
+            }
 
-        // Night Order sheet first day
-//        foreach($roles->where("firstNight","!=",null)->sortBy("firstNight") as $act){
-//            echo "<strong>".$act->name."</strong> <small>".$act->ability."</small><br/>". $act->firstNightReminder ."<br /><br/>";
-//        }
-//
-//        echo "<hr>";
-//
-//        // Night Order sheet order days
-//        foreach($roles->where("otherNight","!=",null)->sortBy("otherNight") as $act){
-//            echo "<strong>".$act->name."</strong> <small>".$act->ability."</small><br/>". $act->otherNightReminder ."<br /><br/>";
-//        }
+            foreach($role->jinx as $jinx){
+                $inPlay = $roles->where('id',$jinx->jinx_with)->first();
+                if($inPlay){
+                    $jinxes->add((object)[
+                        'jinx' => $jinx->jinx,
+                        'role' => $role,
+                        'with' => $inPlay,
+                        'role_id' => $jinx->role_id,
+                        'jinx_with' => $jinx->jinx_with
+                    ]);
+                }
+            }
+        }
+
+        return view('print', compact('roles','author', 'title', 'jinxes'));
     }
 }

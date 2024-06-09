@@ -79,6 +79,29 @@ class BotcRole extends Model
         }
     }
 
+    public static function collectNightOrder(): void
+    {
+        $url = "https://script.bloodontheclocktower.com/data/nightsheet.json";
+        $response = Http::withOptions(['verify' => false])->get($url);
+
+        $json = json_decode($response->body());
+
+        $firstNight = $json->firstNight;
+        $otherNight = $json->otherNight;
+
+        foreach($firstNight as $order => $roleName){
+            $role = BotcRole::where('name', $roleName)->first();
+            $role->firstNight = $order;
+            $role->save();
+        }
+
+        foreach($otherNight as $order => $roleName){
+            $role = BotcRole::where('name', $roleName)->first();
+            $role->otherNight = $order;
+            $role->save();
+        }
+    }
+
     public static function translateRole($role): string{
         return strtolower(str_replace(" ","_",str_replace("'","",$role)));
     }

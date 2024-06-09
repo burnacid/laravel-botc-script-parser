@@ -92,6 +92,12 @@ div#main{
 .role-icon{
     height: 60px;
 }
+
+.jinx-icon{
+    height: 30px;
+    vertical-align: middle;
+}
+
 .role .ability {
     flex-grow: 1;
     font-size: small;
@@ -106,8 +112,8 @@ div#main{
 }
 
 .reminder .icon{
-    width: 45px;
     height: 45px;
+    flex: 0 0 45px
 }
 
 .reminder .role-icon{
@@ -168,4 +174,36 @@ div#main{
 
 .font-light{
     color: #ccc;
+}
+
+.page{
+    height: 100%;
+}
+
+.jinxes{
+    padding: 20px 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.jinx{
+    font-size: small;
+    vertical-align: middle;
+    display: inline-flex;
+}
+
+.jinx .role-icon{
+    height: 40px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.jinx-icons{
+    width: 80px;
+    display: inline-flex;
+}
+
+.jinx-text{
+    flex-grow: 1;
+    padding: 5px 0;
 }
