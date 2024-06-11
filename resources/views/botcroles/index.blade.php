@@ -87,7 +87,7 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a><br />
+                                <a href="{{route('settings.botcroles.edit',$role)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a><br />
                                 <a href="{{route('settings.botcroles.delete',$role)}}" data-method="delete" onclick="return confirm('Are you sure you like to delete {{$role->name}}?')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
                             </td>
                         </tr>

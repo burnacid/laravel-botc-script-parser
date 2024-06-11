@@ -51,6 +51,40 @@ class BotcRolesController extends Controller
         return view('botcroles.index', compact('roles','q'));
     }
 
+    public function edit(Request $request, BotcRole $botcRole){
+        return view('botcroles.edit', compact('botcRole'));
+    }
+
+    public function update(Request $request, BotcRole $botcRole){
+        $request->validate([
+            'id' => 'required',
+            'name' => 'required',
+            'ability' => 'required',
+            'team' => 'required',
+            'image' => 'mimes:jpg,png|max:2048'
+        ]);
+
+        if($request->file('image')) {
+            $file = $request->file('image');
+            $fileName = $file->getClientOriginalName();
+            $fileNameSplit = explode('.', $fileName);
+            $extension = array_pop($fileNameSplit);
+            $imageName = $request->input('id') . "." . $extension;
+            $file->storeAs('public/roles', $imageName);
+            $botcRole->image = $imageName;
+        }
+
+        $botcRole->id = $request->input('id');
+        $botcRole->name = $request->input('name');
+        $botcRole->ability = $request->input('ability');
+        $botcRole->firstNightReminder = $request->input('firstNightReminder');
+        $botcRole->otherNightReminder = $request->input('otherNightReminder');
+        $botcRole->team = $request->input('team');
+        $botcRole->save();
+
+        return redirect('/botcroles')->with('success', $botcRole->name. ' successfully updated!');
+    }
+
     public function destroy(Request $request, BotcRole $botcRole){
 
         if($botcRole->image){

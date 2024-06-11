@@ -18,6 +18,8 @@ class BotcRole extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
+    protected $table = 'botc_roles';
+
     public function jinx(): HasMany
     {
         return $this->hasMany(BotcJinx::class, 'role_id', 'id');

@@ -23,7 +23,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/botcroles', [BotCRolesController::class, 'index'])->name('settings.botcroles');
     Route::get('/botcroles/{botcRole}', [BotCRolesController::class, 'destroy'])->name('settings.botcroles.delete');
-
+    Route::get('/botcroles/{botcRole}/edit', [BotCRolesController::class, 'edit'])->name('settings.botcroles.edit');
+    Route::post('/botcroles/{botcRole}/edit', [BotCRolesController::class, 'update'])->name('settings.botcroles.edit');
 });
 
 require __DIR__.'/auth.php';
