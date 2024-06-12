@@ -11,17 +11,17 @@
             <div>
                 <a href="{{ route('settings.botcroles') }}?view=missingimage" class="inline-block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{__("Roles without image")}}</h5>
-                    <p class="text-4xl text-gray-700 dark:text-gray-400">{{ $allRoles->where('image','=',null)->count() }}</p>
+                    <p class="text-4xl text-gray-700 dark:text-gray-400">{{ $allRoles->where('image','=',null)->where('team','!=','_meta')->count() }}</p>
                 </a>
 
                 <a href="{{ route('settings.botcroles') }}?view=missingability" class="inline-block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{__("Roles missing ability")}}</h5>
-                    <p class="text-4xl text-gray-700 dark:text-gray-400">{{ $allRoles->where('ability','=',null)->count() }}</p>
+                    <p class="text-4xl text-gray-700 dark:text-gray-400">{{ $allRoles->where('ability','=',null)->where('team','!=','_meta')->count() }}</p>
                 </a>
 
                 <a href="{{ route('settings.botcroles') }}?view=missingnight" class="inline-block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{__("Roles missing reminders")}}</h5>
-                    <p class="text-4xl text-gray-700 dark:text-gray-400">{{ $allRoles->wherenotnull('firstNight')->where('firstNightReminder', null)->count() + $allRoles->wherenotnull('otherNight')->where('otherNightReminder', null)->count() }}</p>
+                    <p class="text-4xl text-gray-700 dark:text-gray-400">{{ $allRoles->wherenotnull('firstNight')->where('firstNightReminder', null)->where('team','!=','_meta')->count() + $allRoles->wherenotnull('otherNight')->where('otherNightReminder', null)->where('team','!=','_meta')->count() }}</p>
                 </a>
             </div>
 
@@ -70,7 +70,9 @@
                     @foreach($roles as $role)
                         <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                             <th scope="row" class="px-1 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <img src="{{asset('storage/roles/'.$role->image)}}" class="h-16" />
+                                @if($role->image)
+                                    <img src="{{asset('storage/roles/'.$role->image)}}" class="h-16"  alt="{{$role->id}}"/>
+                                @endif
                             </th>
                             <td class="px-6 py-4">
                                 {{$role->name}}

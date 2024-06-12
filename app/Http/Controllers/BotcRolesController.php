@@ -48,11 +48,11 @@ class BotcRolesController extends Controller
             return $query->where('name', 'like', '%'.$value.'%')->orWhere('team','like', '%'.$value.'%');
         })->when($request->view, function($query, $view){
             if($view == 'missingimage'){
-                return $query->where('image', null);
+                return $query->where('image', null)->Where("team","<>","_meta");
             }
 
             if($view == 'missingability'){
-                return $query->where('ability', null);
+                return $query->where('ability', null)->Where("team","<>","_meta");
             }
 
             if($view == 'missingnight'){
@@ -60,7 +60,7 @@ class BotcRolesController extends Controller
                     return $query->wherenotnull('firstNight')->where('firstNightReminder', null);
                 })->orWhere(function ($query){
                     return $query->wherenotnull('otherNight')->where('otherNightReminder', null);
-                });
+                })->Where("team","<>","_meta");
             }
 
             return $query;
