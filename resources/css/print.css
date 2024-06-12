@@ -85,6 +85,17 @@ div#main{
     color: #FF0000;
 }
 
+.fabled .role-name{
+    color: #ca7000;
+    font-size: small;
+}
+
+.traveler .role-name{
+    color: #000000;
+    font-size: small;
+}
+
+
 .role .icon{
 
 }

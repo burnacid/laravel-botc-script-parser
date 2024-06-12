@@ -8,6 +8,18 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
+            @if (session('success'))
+                <x-alert-success>
+                    {{ session('success') }}
+                </x-alert-success>
+            @endif
+
+            @if (session('failure'))
+                <x-alert-error>
+                    {{ session('failure') }}
+                </x-alert-error>
+            @endif
+
             <div>
                 <a href="{{ route('settings.botcroles') }}?view=missingimage" class="inline-block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{__("Roles without image")}}</h5>
@@ -106,8 +118,9 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
-                                <a href="{{route('settings.botcroles.edit',$role)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a><br />
-                                <a href="{{route('settings.botcroles.delete',$role)}}" data-method="delete" onclick="return confirm('Are you sure you like to delete {{$role->name}}?')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
+                                <a href="{{route('settings.botcroles.image',$role)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{__("Get Image")}}</a>
+                                <a href="{{route('settings.botcroles.edit',$role)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{__("Edit")}}</a><br />
+                                <a href="{{route('settings.botcroles.delete',$role)}}" data-method="delete" onclick="return confirm('Are you sure you like to delete {{$role->name}}?')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{__("Delete")}}</a>
                             </td>
                         </tr>
                     @endforeach

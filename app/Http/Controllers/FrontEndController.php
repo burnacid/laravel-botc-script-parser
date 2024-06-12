@@ -29,10 +29,10 @@ class FrontEndController extends Controller
         foreach ($json as $item) {
             if(gettype($item) == 'object'){
                 if($item->id == "_meta"){
-                    if($item->name){
+                    if(isset($item->name)){
                         $title = $item->name;
                     }
-                    if($item->author){
+                    if(isset($item->author)){
                         $author = $item->author;
                     }
                     continue;

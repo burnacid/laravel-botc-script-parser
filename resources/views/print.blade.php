@@ -122,6 +122,53 @@
                 </div>
             </div>
         @endforeach
+
+        @if($roles->where("team","traveler"))
+            <div class="team traveler">
+                <div class="roles">
+                    @foreach($roles->where("team","traveler") as $role)
+                        <div class="role">
+                            <div class="icon">
+                                <img class="role-icon" src="{{ asset('storage/roles/'.$role->image) }}" >
+                            </div>
+                            <div class="ability">
+                                <div class="role-name">
+                                    {{$role->name}}
+                                    @foreach($jinxes->where('role_id',$role->id) as $jinx)
+                                        <img class="jinx-icon" src="{{ asset('storage/roles/'.$jinx->with->image) }}" >
+                                    @endforeach
+                                </div>
+                                {!! $role->formattedAbility()  !!}
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
+        @if($roles->where("team","fabled"))
+            <div class="team fabled">
+                <div class="roles top-line">
+                    @foreach($roles->where("team","fabled") as $role)
+                        <div class="role">
+                            <div class="icon">
+                                <img class="role-icon" src="{{ asset('storage/roles/'.$role->image) }}" >
+                            </div>
+                            <div class="ability">
+                                <div class="role-name">
+                                    {{$role->name}}
+                                    @foreach($jinxes->where('role_id',$role->id) as $jinx)
+                                        <img class="jinx-icon" src="{{ asset('storage/roles/'.$jinx->with->image) }}" >
+                                    @endforeach
+                                </div>
+                                {!! $role->formattedAbility()  !!}
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
         @if($jinxes)
             <div class="jinxes">
                 @foreach($jinxes as $jinx)

@@ -117,4 +117,14 @@ class BotcRolesController extends Controller
 
         return redirect('/botcroles')->with('success', $botcRole->name. ' deleted!');
     }
+
+    public function getImage(Request $request, BotcRole $botcRole){
+        $Image = $botcRole->grepIcon();
+
+        if($Image){
+            return redirect('/botcroles')->with('success', 'Image collected');
+        }
+
+        return redirect('/botcroles')->with('failure', __('Could not fetch image!'));
+    }
 }

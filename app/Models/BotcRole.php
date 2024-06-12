@@ -28,7 +28,7 @@ class BotcRole extends Model
     public function grepIcon(): bool
     {
         try {
-            $name = "Icon_" . str_replace("_","",$this->id) . ".png";
+            $name = "Icon_" . str_replace("_","",str_replace("-","",$this->id)) . ".png";
             $extractPatern = '/<img alt=\"File:Icon.*\" src=\".*" decoding.* \/>/';
             $response = Http::withOptions(['verify' => false])->get('https://wiki.bloodontheclocktower.com/File:' . $name);
             preg_match($extractPatern, $response->body(), $matches);
