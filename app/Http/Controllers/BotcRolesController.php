@@ -40,15 +40,33 @@ class BotcRolesController extends Controller
     }
 
     public function index(Request $request){
-        if($request->q){
-            $q = $request->q;
-            $roles = BotcRole::where('name', 'like', '%'.$request->q.'%')->orWhere('team','like', '%'.$request->q.'%')->orderBy('name')->paginate(15);
-        }else{
-            $q = "";
-            $roles = BotcRole::orderBy('name')->paginate(15);
-        }
+        $allRoles = BotcRole::all();
 
-        return view('botcroles.index', compact('roles','q'));
+        $q = $request->q;
+
+        $roles = BotcRole::when($request->q, function($query,$value){
+            return $query->where('name', 'like', '%'.$value.'%')->orWhere('team','like', '%'.$value.'%');
+        })->when($request->view, function($query, $view){
+            if($view == 'missingimage'){
+                return $query->where('image', null);
+            }
+
+            if($view == 'missingability'){
+                return $query->where('ability', null);
+            }
+
+            if($view == 'missingnight'){
+                return $query->where(function ($query){
+                    return $query->wherenotnull('firstNight')->where('firstNightReminder', null);
+                })->orWhere(function ($query){
+                    return $query->wherenotnull('otherNight')->where('otherNightReminder', null);
+                });
+            }
+
+            return $query;
+        })->orderBy('name')->paginate(15);
+
+        return view('botcroles.index', compact('roles','q', 'allRoles'));
     }
 
     public function edit(Request $request, BotcRole $botcRole){
