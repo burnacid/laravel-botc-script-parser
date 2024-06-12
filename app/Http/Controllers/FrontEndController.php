@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BotcJinx;
 use App\Models\BotcRole;
 use Illuminate\Http\Request;
 use \Illuminate\Contracts\View\View;
@@ -11,6 +12,21 @@ class FrontEndController extends Controller
     public function index(): View
     {
         return view('welcome');
+    }
+
+    public function jinxes(Request $request): View
+    {
+        $q = $request->q;
+
+        $jinxes = BotcJinx::when($request->q, function($query) use ($q) {
+            return $query->whereHas('role', function ($query) use ($q) {
+                $query->where('name', 'like', '%'.$q.'%');
+            })->orWhereHas('withRole', function ($query) use ($q) {
+                $query->where('name', 'like', '%'.$q.'%');
+            });
+        })->orWhere('jinx', 'like', '%'.$q.'%')->paginate(15);
+
+        return view('jinxes', compact('q', 'jinxes'));
     }
 
     public function process(Request $request)
@@ -74,5 +90,10 @@ class FrontEndController extends Controller
         }
 
         return view('print', compact('roles','author', 'title', 'jinxes'));
+    }
+
+    public function nightOrder(){
+        $roles = BotcRole::where('team','<>','_meta')->orderBy("name")->get();
+        return view('nightorder',compact('roles'));
     }
 }

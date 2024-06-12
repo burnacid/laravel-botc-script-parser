@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BotcJinxController;
 use App\Http\Controllers\BotcRolesController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -7,6 +8,9 @@ use App\Http\Controllers\FrontEndController;
 
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
 Route::post('/', [FrontEndController::class, 'process'])->name('home');
+Route::get('/nightorder', [FrontEndController::class, 'nightOrder'])->name('nightorder');
+
+Route::get('/jinxes', [FrontEndController::class, 'jinxes'])->name('jinxes');
 
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
@@ -27,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/botcroles/{botcRole}/edit', [BotCRolesController::class, 'update'])->name('settings.botcroles.edit');
 
     Route::get('/botcroles/{botcRole}/image', [BotCRolesController::class, 'getImage'])->name('settings.botcroles.image');
+
+    Route::get('/botcjinx', [BotcJinxController::class, 'index'])->name('settings.botcjinx');
 });
 
 require __DIR__.'/auth.php';

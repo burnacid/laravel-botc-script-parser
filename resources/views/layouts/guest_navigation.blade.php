@@ -188,6 +188,10 @@
                 {{ __('Script Parser') }}
             </x-nav-link>
 
+            <x-nav-link :href="route('jinxes')" :active="request()->routeIs('jinxes')">
+                {{ __('Jinx Lookup') }}
+            </x-nav-link>
+
             @auth
 
                 <x-dropdown align="right" width="48" :active="request()->routeIs('settings.botcroles')">
@@ -199,7 +203,7 @@
                         <x-dropdown-link :href="route('settings.botcroles')" :active="request()->routeIs('settings.botcroles')">
                             {{ __('BotC Roles') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('settings.botcjinx')" :active="request()->routeIs('settings.botcjinx')">
                             {{ __('BotC Jinxes') }}
                         </x-dropdown-link>
                     </x-slot>

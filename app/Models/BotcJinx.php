@@ -17,9 +17,16 @@ class BotcJinx extends Model
     protected $primaryKey = ['role_id', 'jinx_with'];
     protected $keyType = 'string';
 
+    protected $with = ['role','withRole'];
+
     public function role(): BelongsTo
     {
-        return $this->belongsTo(BotcRole::class);
+        return $this->belongsTo(BotcRole::class, 'role_id', 'id');
+    }
+
+    public function withRole(): BelongsTo
+    {
+        return $this->belongsTo(BotcRole::class, 'jinx_with', 'id');
     }
 
     public static function collectJinx(): void
