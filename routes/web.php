@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/botcroles/{botcRole}/image', [BotCRolesController::class, 'getImage'])->name('settings.botcroles.image');
 
     Route::get('/botcjinx', [BotcJinxController::class, 'index'])->name('settings.botcjinx');
+    Route::get('/botcjinx/{role}/{with}', [BotcJinxController::class, 'edit'])->name('settings.botcjinx.edit');
+    Route::post('/botcjinx/{role}/{with}', [BotcJinxController::class, 'update'])->name('settings.botcjinx.edit');
 });
 
 require __DIR__.'/auth.php';

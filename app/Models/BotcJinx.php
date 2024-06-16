@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,11 +12,9 @@ class BotcJinx extends Model
 {
     use HasFactory;
 
-    // https://script.bloodontheclocktower.com/data/jinx.json
-
-    public $incrementing = false;
-    protected $primaryKey = ['role_id', 'jinx_with'];
-    protected $keyType = 'string';
+//    public $incrementing = false;
+//    protected $primaryKey = ['role_id', 'jinx_with'];
+//    protected $keyType = 'string';
 
     protected $with = ['role','withRole'];
 
@@ -27,6 +26,16 @@ class BotcJinx extends Model
     public function withRole(): BelongsTo
     {
         return $this->belongsTo(BotcRole::class, 'jinx_with', 'id');
+    }
+
+    public static function find($role_id, $jinx_with){
+        return BotcJinx::where('role_id', $role_id)->where('jinx_with', $jinx_with)->first();
+    }
+
+    public function historyJinxes()
+    {
+        $jinxes = BotcHistoricJinx::where('role_id',$this->role_id)->where('jinx_with', $this->jinx_with)->get();
+        return $jinxes;
     }
 
     public static function collectJinx(): void
@@ -46,13 +55,37 @@ class BotcJinx extends Model
 
             foreach($jinx->jinx as $withJinx){
                 $jinx_with = BotcRole::translateRole($withJinx->id);
-                $existingJinx = BotcJinx::where('role_id', $role_id)->where('jinx_with', $jinx_with)->first();
+
+                // Check if there is an existing jinx
+                $existingJinx = BotcJinx::find($role_id, $jinx_with);
                 if($existingJinx){
+                    // Check if jinx text is the same
+                    if($existingJinx->jinx == $withJinx->reason){
+                        echo "Jinx is current... skipping\n";
+                        continue;
+                    }
+
+                    $historicJinxes = $existingJinx->historyJinxes()->where('jinx', $withJinx->reason);
+                    if($historicJinxes->count() > 0){
+                        echo "Jinx found in historical jinxes... skipping\n";
+                        continue;
+                    }
+
+                    // Write Historic Jinx
+                    $newHistoryJinx = new BotcHistoricJinx();
+                    $newHistoryJinx->role_id = $existingJinx->role_id;
+                    $newHistoryJinx->jinx_with = $existingJinx->jinx_with;
+                    $newHistoryJinx->jinx = $existingJinx->jinx;
+                    $newHistoryJinx->since = Carbon::now();
+                    $newHistoryJinx->save();
+
+                    // Update Jinx
                     $existingJinx->jinx = $withJinx->reason;
                     $existingJinx->save();
                     continue;
                 }
 
+                // Save new jinx
                 $newJinx = new BotcJinx();
                 $newJinx->role_id = $role_id;
                 $newJinx->jinx_with = $jinx_with;

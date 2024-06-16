@@ -9,6 +9,7 @@
         "ext-dom": "*",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+        "nesbot/carbon": "^3.5",
         "spatie/laravel-html": "^3.9"
     },
     "require-dev": {
