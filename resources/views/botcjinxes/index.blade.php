@@ -76,7 +76,6 @@
                                 {{$jinx->jinx}}
                             </td>
                             <td class="px-6 py-4">
-{{--                                <a href="{{route('settings.botcroles.image',$role)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{__("Get Image")}}</a>--}}
                                 <a href="{{route('settings.botcjinx.edit',[$jinx->role_id,$jinx->jinx_with])}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{__("Edit")}}</a><br />
 {{--                                <a href="{{route('settings.botcroles.delete',$role)}}" data-method="delete" onclick="return confirm('Are you sure you like to delete {{$role->name}}?')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{__("Delete")}}</a>--}}
                             </td>
