@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BotcHistoricJinx;
 use App\Models\BotcJinx;
 use App\Models\BotcRole;
+use Couchbase\Role;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -64,5 +65,32 @@ class BotcJinxController extends Controller
         })->orWhere('jinx', 'like', '%'.$q.'%')->paginate(15);
 
         return view('botcjinxes.index', compact('allJinxes', 'q', 'jinxes'));
+    }
+
+    public function add(){
+        $roles = BotcRole::where('team','<>','_meta')->orderBy('name')->get();
+
+        return view('botcjinxes.add', compact('roles'));
+    }
+
+    public function create(Request $request){
+        $request->validate([
+            'role_id' => 'required',
+            'jinx_with' => 'required',
+            'jinx' => 'required'
+        ]);
+
+        $existingJinx = BotcJinx::find($request->role_id,$request->jinx_with);
+        if($existingJinx){
+            return redirect(route('settings.botcjinx'))->with('failure','A jinx already exists with those roles.');
+        }
+
+        $jinx = new BotcJinx();
+        $jinx->role_id = $request->role_id;
+        $jinx->jinx_with = $request->jinx_with;
+        $jinx->jinx = $request->jinx;
+        $jinx->save();
+
+        return redirect(route('settings.botcjinx'))->with('success','Successfully added jinx.');
     }
 }

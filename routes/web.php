@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/botcjinx', [BotcJinxController::class, 'index'])->name('settings.botcjinx');
     Route::get('/botcjinx/{role}/{with}', [BotcJinxController::class, 'edit'])->name('settings.botcjinx.edit');
     Route::post('/botcjinx/{role}/{with}', [BotcJinxController::class, 'update'])->name('settings.botcjinx.edit');
+    Route::get('/botcjinx/add', [BotcJinxController::class, 'add'])->name('settings.botcjinx.add');
+    Route::post('/botcjinx/add', [BotcJinxController::class, 'create'])->name('settings.botcjinx.add');
 });
 
 require __DIR__.'/auth.php';
