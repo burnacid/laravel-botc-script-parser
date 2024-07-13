@@ -18,9 +18,11 @@
         </div>
         <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
 
+            @auth()
             <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Script Parser') }}
             </x-nav-link>
+            @endauth
 
             <x-nav-link :href="route('jinxes')" :active="request()->routeIs('jinxes')">
                 {{ __('Jinx Lookup') }}
