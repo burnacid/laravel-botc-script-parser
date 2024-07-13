@@ -6,13 +6,13 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontEndController;
 
-Route::get('/', [FrontEndController::class, 'index'])->name('home');
-Route::post('/', [FrontEndController::class, 'process'])->name('home');
 Route::get('/nightorder', [FrontEndController::class, 'nightOrder'])->name('nightorder');
-
 Route::get('/jinxes', [FrontEndController::class, 'jinxes'])->name('jinxes');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/', [FrontEndController::class, 'index'])->name('home');
+    Route::post('/', [FrontEndController::class, 'process'])->name('home');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
