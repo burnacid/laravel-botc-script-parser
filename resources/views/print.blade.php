@@ -8,7 +8,7 @@
     <div class="team good">
         <div class="title">Townsfolk</div>
         <div class="roles">
-            @foreach($roles->where("team","townsfolk") as $role)
+            @foreach($roles->where("team","townsfolk")->sortBy('scriptOrder') as $role)
                 <div class="role">
                     <div class="icon">
                         <img class="role-icon" src="{{ asset('storage/roles/'.$role->image) }}" >
@@ -30,7 +30,7 @@
     <div class="team good">
         <div class="title">Outsider</div>
         <div class="roles top-line">
-            @foreach($roles->where("team","outsider") as $role)
+            @foreach($roles->where("team","outsider")->sortBy('scriptOrder') as $role)
                 <div class="role">
                     <div class="icon">
                         <img class="role-icon" src="{{ asset('storage/roles/'.$role->image) }}" >
@@ -52,7 +52,7 @@
     <div class="team bad">
         <div class="title">Minion</div>
         <div class="roles top-line">
-            @foreach($roles->where("team","minion") as $role)
+            @foreach($roles->where("team","minion")->sortBy('scriptOrder') as $role)
                 <div class="role">
                     <div class="icon">
                         <img class="role-icon" src="{{ asset('storage/roles/'.$role->image) }}" >
@@ -74,7 +74,7 @@
     <div class="team bad">
         <div class="title">Demon</div>
         <div class="roles top-line">
-            @foreach($roles->where("team","demon") as $role)
+            @foreach($roles->where("team","demon")->sortBy('scriptOrder') as $role)
                 <div class="role">
                     <div class="icon">
                         <img class="role-icon" src="{{ asset('storage/roles/'.$role->image) }}" >

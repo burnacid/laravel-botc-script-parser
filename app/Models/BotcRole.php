@@ -64,12 +64,13 @@ class BotcRole extends Model
 
         $json = json_decode($response->body());
 
-        foreach($json as $role){
+        foreach($json as $index => $role){
             $id = BotcRole::translateRole($role->id);
-            if(!BotcRole::find($id)){
+            if(!$Role = BotcRole::find($id)){
                 $NewRole = new BotcRole();
                 $NewRole->id = $id;
                 $NewRole->name = $role->name;
+                $NewRole->scriptOrder = $index;
 
                 if($role->roleType == "travellers"){
                     $role->roleType = "traveler";
@@ -77,6 +78,9 @@ class BotcRole extends Model
 
                 $NewRole->team = $role->roleType;
                 $NewRole->save();
+            }else{
+                $Role->scriptOrder = $index;
+                $Role->save();
             }
         }
     }
