@@ -3,7 +3,7 @@
         Please use the print option of your browser to print this script on paper or turn it into a PDF
     </div>
     <div class="title">
-        {{$title}}
+        {{$title ?: "Unknown"}}
     </div>
     <div class="team good">
         <div class="title">Townsfolk</div>
@@ -105,7 +105,7 @@
     <div class="page">
         <div class="title">
             <div class="sheet">First Night</div>
-            <div class="name">{{$title}}</div>
+            <div class="name">{{$title ?: "Unknown"}}</div>
         </div>
         @foreach($roles->where("firstNight","!=",null)->sortBy("firstNight") as $role)
             <div class="reminder {{$role->team}}">
@@ -190,7 +190,7 @@
 
     <div class="title">
         <div class="sheet">Other Nights</div>
-        <div class="name">{{$title}}</div>
+        <div class="name">{{$title ?: "Unknown"}}</div>
     </div>
     @foreach($roles->where("otherNight","!=",null)->sortBy("otherNight") as $role)
         <div class="reminder {{$role->team}}">
