@@ -93,5 +93,34 @@ class BotcJinx extends Model
                 $newJinx->save();
             }
         }
+
+        ## Cleanup old unlinked jinxes
+        $jinxes = BotcJinx::all();
+        foreach ($jinxes as $jinx) {
+            if(!$jinx->role){
+                $jinx->delete();
+                echo "Removing jinx {$role->role_id}, {$role->jinx_with}\n";
+                continue;
+            }
+
+            if(!$jinx->withRole){
+                $jinx->delete();
+                echo "Removing jinx {$role->role_id}, {$role->jinx_with}\n";
+            }
+        }
+
+        $jinxes = BotcHistoricJinx::all();
+        foreach ($jinxes as $jinx) {
+            if(!$jinx->role){
+                $jinx->delete();
+                echo "Removing jinx {$role->role_id}, {$role->jinx_with}\n";
+                continue;
+            }
+
+            if(!$jinx->withRole){
+                $jinx->delete();
+                echo "Removing jinx {$role->role_id}, {$role->jinx_with}\n";
+            }
+        }
     }
 }
