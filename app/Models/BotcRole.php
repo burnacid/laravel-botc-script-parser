@@ -96,13 +96,21 @@ class BotcRole extends Model
         $otherNight = $json->otherNight;
 
         foreach($firstNight as $order => $roleName){
-            $role = BotcRole::where('name', $roleName)->first();
+            $role = BotcRole::where('id', $roleName)->first();
+            if(!$role){
+                echo "{$roleName}\n";
+                continue;
+            }
             $role->firstNight = $order+1;
             $role->save();
         }
 
         foreach($otherNight as $order => $roleName){
-            $role = BotcRole::where('name', $roleName)->first();
+            $role = BotcRole::where('id', $roleName)->first();
+            if(!$role){
+                echo "{$roleName}\n";
+                continue;
+            }
             $role->otherNight = $order+1;
             $role->save();
         }
