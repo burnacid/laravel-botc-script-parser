@@ -7,10 +7,12 @@
     "require": {
         "php": "^8.2",
         "ext-dom": "*",
+        "intervention/image": "^3.8",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "nesbot/carbon": "^3.5",
-        "spatie/laravel-html": "^3.9"
+        "spatie/laravel-html": "^3.9",
+        "thiagoalessio/tesseract_ocr": "^2.13"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",
